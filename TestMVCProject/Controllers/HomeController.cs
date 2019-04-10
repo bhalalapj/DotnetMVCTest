@@ -1,4 +1,5 @@
 ﻿using NewsAPI.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,19 @@ namespace TestMVCProject.Controllers
     {
         public ActionResult Index()
         {
-            var models = string.Empty;
+            var models = new List<JsonElement>();
             var jsonTask = Factory.Instance.GetJSONPlaceholderRecordsAsync();
-            jsonTask.ContinueWith((task) => {
-                var data = task.Result;
+            jsonTask.ContinueWith((task) =>
+            {
+                models = JsonConvert.DeserializeObject<List<JsonElement>>(task.Result);
+                return View(models);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
-            return View(models);
+
+            jsonTask.ContinueWith((task) =>
+            {
+                var error = task.Result;
+            }, TaskContinuationOptions.OnlyOnFaulted);
+            return View();
         }
 
         public ActionResult About()
