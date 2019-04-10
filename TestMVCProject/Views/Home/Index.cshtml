@@ -10,20 +10,20 @@
 
 <div class="row">
     <div class="col-md-4">
-        <ul class="list-group">
+        <ol class="list-group">
             @if (Model != null)
             {
                 foreach (var item in Model)
                 {
                     <li class="list-group-item">
-                        @Html.DisplayFor(mi => item.Name)
+                        @Html.DisplayFor(mi => item.Title)
                     </li>
                     <li class="list-group-item">
-                        @Html.DisplayFor(mi => item.Address)
+                        @Html.DisplayFor(mi => item.Author)
                     </li>
                 }
             }
-        </ul>
+        </ol>
     </div>
     <div class="col-md-4">
         <h2>Get more libraries</h2>

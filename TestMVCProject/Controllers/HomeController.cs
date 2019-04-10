@@ -1,9 +1,11 @@
-﻿using System;
+﻿using NewsAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TestMVCProject.Models;
+using TestMVCProject.Proxy;
 
 namespace TestMVCProject.Controllers
 {
@@ -11,15 +13,7 @@ namespace TestMVCProject.Controllers
     {
         public ActionResult Index()
         {
-            List<SampleModel> models = new List<SampleModel>();
-            for (int i = 0; i < 10; i++)
-            {
-                models.Add(new SampleModel
-                {
-                    Name = "Name " + (i+1),
-                    Address = "Address " + (i+1)
-                });
-            }
+            List<Article> models = Factory.Instance.GetLatestNews();
             return View(models);
         }
 
