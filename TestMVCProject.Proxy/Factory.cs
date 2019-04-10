@@ -3,9 +3,7 @@ using NewsAPI.Constants;
 using NewsAPI.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace TestMVCProject.Proxy
 {
@@ -43,6 +41,21 @@ namespace TestMVCProject.Proxy
             else
             {
                 throw new InvalidOperationException(articalResponse.Error.Message);
+            }
+        }
+
+        public async System.Threading.Tasks.Task<string> GetJSONPlaceholderRecordsAsync()
+        {
+            string url = "https://jsonplaceholder.typicode.com/posts";
+            HttpClient client = new HttpClient();
+            var response  = await client.GetAsync(url);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                return response.ReasonPhrase;
             }
         }
     }

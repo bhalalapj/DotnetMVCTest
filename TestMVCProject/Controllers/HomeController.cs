@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TestMVCProject.Models;
@@ -13,7 +14,11 @@ namespace TestMVCProject.Controllers
     {
         public ActionResult Index()
         {
-            List<Article> models = Factory.Instance.GetLatestNews();
+            var models = string.Empty;
+            var jsonTask = Factory.Instance.GetJSONPlaceholderRecordsAsync();
+            jsonTask.ContinueWith((task) => {
+                var data = task.Result;
+            }, TaskContinuationOptions.OnlyOnRanToCompletion);
             return View(models);
         }
 
