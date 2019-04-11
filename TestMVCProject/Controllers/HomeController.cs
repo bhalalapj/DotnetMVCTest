@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -13,21 +14,17 @@ namespace TestMVCProject.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var models = new List<JsonElement>();
-            var jsonTask = Factory.Instance.GetJSONPlaceholderRecordsAsync();
-            jsonTask.ContinueWith((task) =>
-            {
-                models = JsonConvert.DeserializeObject<List<JsonElement>>(task.Result);
-                return View(models);
-            }, TaskContinuationOptions.OnlyOnRanToCompletion);
+            var strJsonResult = await Factory.Instance.GetJSONPlaceholderRecordsAsync();
+            var strNasaResult = await Factory.Instance.GetNASAAPIResultAsync();
+            dynamic model = new ExpandoObject();
+            var models = JsonConvert.DeserializeObject<List<JsonElement>>(strJsonResult);
+            var nasaModel = JsonConvert.DeserializeObject<NASAElement>(strNasaResult);
+            model.jsonModel = models;
+            model.NasaModel = nasaModel;
 
-            jsonTask.ContinueWith((task) =>
-            {
-                var error = task.Result;
-            }, TaskContinuationOptions.OnlyOnFaulted);
-            return View();
+            return View(model);
         }
 
         public ActionResult About()
@@ -42,6 +39,16 @@ namespace TestMVCProject.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Detail(JsonElement ele)
+        {
+            return View(ele);
+        }
+
+        public ActionResult NasaDetail(NASAElement nasaElement)
+        {
+            return View(nasaElement);
         }
     }
 }

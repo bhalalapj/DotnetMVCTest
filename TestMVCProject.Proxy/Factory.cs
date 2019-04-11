@@ -4,6 +4,7 @@ using NewsAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace TestMVCProject.Proxy
 {
@@ -44,11 +45,26 @@ namespace TestMVCProject.Proxy
             }
         }
 
-        public async System.Threading.Tasks.Task<string> GetJSONPlaceholderRecordsAsync()
+        public async Task<string> GetJSONPlaceholderRecordsAsync()
         {
             string url = "https://jsonplaceholder.typicode.com/posts";
             HttpClient client = new HttpClient();
             var response  = await client.GetAsync(url);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                return response.ReasonPhrase;
+            }
+        }
+
+        public async Task<string> GetNASAAPIResultAsync()
+        {
+            string url = "https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo";
+            HttpClient client = new HttpClient();
+            var response = await client.GetAsync(url);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return await response.Content.ReadAsStringAsync();
