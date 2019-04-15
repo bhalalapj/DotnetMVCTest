@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using TestMVCProject.Data;
 
 namespace TestMVCProject.Proxy
 {
@@ -52,6 +53,8 @@ namespace TestMVCProject.Proxy
             var response  = await client.GetAsync(url);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
+                TestMVCProjContext Context = new TestMVCProjContext();
+                Context.NasaModels.
                 return await response.Content.ReadAsStringAsync();
             }
             else

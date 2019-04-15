@@ -46,7 +46,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="NewsAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -125,8 +124,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\JsonModel.cs" />
-    <Compile Include="Models\SampleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,9 +165,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Home\NasaDetail.cshtml" />
+    <Content Include="Views\Home\EditNasaDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -186,6 +185,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestMVCProject.Data\TestMVCProject.Data.csproj">
+      <Project>{3FFA5D33-6221-435E-931E-6A0981A10380}</Project>
+      <Name>TestMVCProject.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestMVCProject.Proxy\TestMVCProject.Proxy.csproj">
       <Project>{EDA45E8A-B71B-4607-A7BB-C02B3B0F782A}</Project>
       <Name>TestMVCProject.Proxy</Name>

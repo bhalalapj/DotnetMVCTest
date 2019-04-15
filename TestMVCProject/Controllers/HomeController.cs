@@ -1,5 +1,4 @@
-﻿using NewsAPI.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -47,6 +46,11 @@ namespace TestMVCProject.Controllers
         }
 
         public ActionResult NasaDetail(NASAElement nasaElement)
+        {
+            return View(nasaElement);
+        }
+        [HttpPost]
+        public ActionResult EditNasaDetail(NASAElement nasaElement)
         {
             return View(nasaElement);
         }
