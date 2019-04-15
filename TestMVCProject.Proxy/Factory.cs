@@ -54,7 +54,7 @@ namespace TestMVCProject.Proxy
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 TestMVCProjContext Context = new TestMVCProjContext();
-                Context.NasaModels.
+                //Context.NasaModels.
                 return await response.Content.ReadAsStringAsync();
             }
             else
